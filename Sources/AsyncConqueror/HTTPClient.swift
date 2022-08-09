@@ -7,10 +7,12 @@
 
 import Foundation
 
-protocol HTTPClient {
+@available(iOS 15.0.0, *)
+public protocol HTTPClient {
     func sendRequest<T: Decodable>(endPoint: Endpoint, responseModel: T.Type) async -> Result<T, RequestError>
 }
 
+@available(iOS 15.0, *)
 extension HTTPClient {
     func sendRequest<T: Decodable>(
         endPoint: Endpoint,
