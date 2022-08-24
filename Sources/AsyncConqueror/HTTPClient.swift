@@ -17,7 +17,7 @@ public extension HTTPClient {
     func sendRequest<T: Decodable>(
         endPoint: Endpoint,
         responseModel: T.Type
-    ) async -> Result<T, RequestError> {
+    ) async throws -> Result<T, RequestError> {
         var urlComponents = URLComponents()
         urlComponents.host = endPoint.host
         urlComponents.scheme = endPoint.scheme
