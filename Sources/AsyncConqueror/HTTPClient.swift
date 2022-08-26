@@ -16,6 +16,7 @@ public protocol HTTPClient {
 public extension HTTPClient {
     func sendRequest<T: Decodable>(
         endPoint: Endpoint,
+        config: Config,
         responseModel: T.Type
     ) async throws -> T {
         var urlComponents = URLComponents()
@@ -30,9 +31,9 @@ public extension HTTPClient {
         
         var request = URLRequest(url: url)
         request.httpMethod = endPoint.method.rawValue
-        request.allHTTPHeaderFields = endPoint.header
+        request.allHTTPHeaderFields = config.header
         
-        if let body = endPoint.body {
+        if let body = config.body {
             // TODO: - Use jsondecoder instead or both
             request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
         }
