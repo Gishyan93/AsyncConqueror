@@ -9,7 +9,11 @@ import Foundation
 
 @available(iOS 15.0.0, *)
 public protocol HTTPClient {
-    func sendRequest<T: Decodable>(endPoint: Endpoint, responseModel: T.Type) async throws -> T
+    func sendRequest<T: Decodable>(
+        endPoint: Endpoint,
+        config: Config,
+        responseModel: T.Type
+    ) async throws -> T
 }
 
 @available(iOS 15.0, *)
