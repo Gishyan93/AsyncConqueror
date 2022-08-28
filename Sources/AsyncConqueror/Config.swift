@@ -14,9 +14,23 @@ public enum EncodingType {
 }
 
 public struct Config {
-    var isNeedsAuth: Bool = false
-    var isAllowedRetry: Bool = false
-    var encodingType: EncodingType = .json
-    var header: [String: String]? = nil
-    var body: Encodable? = nil
+    var isNeedsAuth: Bool
+    var isAllowedRetry: Bool
+    var encodingType: EncodingType
+    var header: [String: String]?
+    var body: Encodable?
+    
+    public init(
+        isNeedsAuth: Bool,
+        isAllowedRetry: Bool = false,
+        encodingType: EncodingType = .json,
+        header: [String: String]? = nil,
+        body: Encodable? = nil
+    ) {
+        self.isNeedsAuth = isNeedsAuth
+        self.isAllowedRetry = isAllowedRetry
+        self.encodingType = .json
+        self.header = header
+        self.body = body
+    }
 }
