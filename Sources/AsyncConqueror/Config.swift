@@ -13,16 +13,10 @@ public enum EncodingType {
     case multipart(params: [String: String]?)
 }
 
-public protocol Config {
-    var isNeedsAuth: Bool { get }
-    var encodingType: EncodingType { get }
-    var header: [String: String]? { get }
-    var body: Encodable? { get }
-}
-
-extension Config {
-    var isNeedsAuth: Bool { false }
-    var encodingType: EncodingType { .json }
-    var header: [String: String]? { nil }
-    var body: Encodable? { nil }
+public struct Config {
+    var isNeedsAuth: Bool = false
+    var isAllowedRetry: Bool = false
+    var encodingType: EncodingType = .json
+    var header: [String: String]? = nil
+    var body: Encodable? = nil
 }
