@@ -38,12 +38,19 @@ public extension HTTPClient {
         request.allHTTPHeaderFields = config.header
         
         if let body = config.body {
-            // TODO: - Use jsondecoder instead or both
-            request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+            switch config.encodingType {
+            case .json:
+                request.httpBody = body.convertToJSON()
+            case .multipart(let params):
+                 request.httpBody = body.convertToMultiPart(
+                    boundary: "",
+                    params: params
+                 )
+            case .url: // TODO: - Fix this
+                break
+            }
         }
         
-        
-        // MARK: - This initializer is awailable from 15.0
         let (data, response) = try await URLSession.shared.data(for: request)
         guard let response = response as? HTTPURLResponse else {
             throw error(.noResponse)
