@@ -38,23 +38,25 @@ public extension HTTPClient {
         request.allHTTPHeaderFields = config.headers
         
         var encodingHeaders: [String: String] = [:]
-        if let body = config.body {
-            switch config.encodingType {
-            case .json:
-                encodingHeaders = ["Content-Type": "application/json; charset=utf-8"]
+        switch config.encodingType {
+        case .json:
+            encodingHeaders = ["Content-Type": "application/json; charset=utf-8"]
+            if let body = config.body {
                 request.httpBody = body.convertToJSON()
-            case .multipart(let params):
-                // TODO: - Fix this
-                let boundary = ""
-                encodingHeaders = ["Content-Type": "multipart/form-data; boundary=\(boundary)"]
+            }
+        case .multipart(let params):
+            // TODO: - Fix this
+            let boundary = ""
+            encodingHeaders = ["Content-Type": "multipart/form-data; boundary=\(boundary)"]
+            if let body = config.body {
                 request.httpBody = body.convertToMultiPart(
                     boundary: boundary,
                     params: params
                 )
-            case .url: // TODO: - Fix this
-                encodingHeaders = ["Content-Type": "application/x-www-form-urlencoded; charset=utf-8"]
-                break
             }
+        case .url: // TODO: - Fix this
+            encodingHeaders = ["Content-Type": "application/x-www-form-urlencoded; charset=utf-8"]
+            break
         }
         
         for header in encodingHeaders {
