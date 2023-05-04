@@ -14,11 +14,11 @@ public enum EncodingType {
 }
 
 public struct Config {
-    var isNeedsAuth: Bool
-    var isAllowedRetry: Bool
-    var encodingType: EncodingType
-    var headers: [String: String]?
-    var body: Encodable?
+    public var isNeedsAuth: Bool
+    public var isAllowedRetry: Bool
+    public var encodingType: EncodingType
+    public var headers: [String: String]?
+    public var body: Encodable?
     
     public init(
         isNeedsAuth: Bool,
